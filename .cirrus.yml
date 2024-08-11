@@ -23,7 +23,9 @@ base_task:
       git reset --hard $CIRRUS_CHANGE_IN_REPO
     fi
   setup_script:
-    - pkg install -fy python39 python3 py39-pip py39-setuptools
+    - pkg install -fy python39 python3 py39-setuptools
+    - fetch https://bootstrap.pypa.io/get-pip.py
+    - python3.9 get-pip.py
     - pip install --upgrade cloudsmith-cli
     - echo "PLATFORM=$(uname -m).$(uname -p)" >> ${CIRRUS_ENV}
   sys_cache:
@@ -68,7 +70,9 @@ kernel_task:
       git reset --hard $CIRRUS_CHANGE_IN_REPO
     fi
   setup_script:
-    - pkg install -fy python39 python3 py39-pip py39-setuptools
+    - pkg install -fy python39 python3 py39-setuptools
+    - fetch https://bootstrap.pypa.io/get-pip.py
+    - python3.9 get-pip.py
     - pip install --upgrade cloudsmith-cli
     - echo "PLATFORM=$(uname -m).$(uname -p)" >> ${CIRRUS_ENV}
     - git clone https://github.com/ravynsoft/drm-kmod.git
@@ -111,7 +115,9 @@ system_task:
       git reset --hard $CIRRUS_CHANGE_IN_REPO
     fi
   setup_script:
-    - pkg install -fy python39 python3 py39-pip py39-setuptools
+    - pkg install -fy python39 python3 py39-setuptools
+    - fetch https://bootstrap.pypa.io/get-pip.py
+    - python3.9 get-pip.py
     - echo "PLATFORM=$(uname -m).$(uname -p)" >> ${CIRRUS_ENV}
   sys_cache:
     folder: /usr/obj/${CIRRUS_WORKING_DIR}/*/sys
