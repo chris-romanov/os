@@ -1,0 +1,5 @@
+Building the WindowServer:
+`make clean && make`
+Run the resulting WindowServer.app/Contents/ravynOS/WindowServer on
+a console tty.
+
