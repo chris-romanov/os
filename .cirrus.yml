@@ -26,7 +26,6 @@ base_task:
     - pkg install -fy python39 python3 py39-setuptools
     - fetch https://bootstrap.pypa.io/get-pip.py
     - python3.9 get-pip.py
-    - pip install --upgrade cloudsmith-cli
     - echo "PLATFORM=$(uname -m).$(uname -p)" >> ${CIRRUS_ENV}
   sys_cache:
     folder: /usr/obj/${CIRRUS_WORKING_DIR}/*/sys
@@ -45,7 +44,6 @@ base_task:
     - cp -afv ${CIRRUS_WORKING_DIR}/usr/obj/${CIRRUS_WORKING_DIR}/${PLATFORM}/ /usr/obj/${CIRRUS_WORKING_DIR}/${PLATFORM}/
     - mkdir -p /usr/obj/${CIRRUS_WORKING_DIR}
     - ${CIRRUS_WORKING_DIR}/tools/ravynOS/build.sh base basepkg
-    - cloudsmith push raw -k $KEY ravynsoft/ravynOS --name base_${CIRRUS_BRANCH%/*}.txz /usr/obj/${CIRRUS_WORKING_DIR}/${PLATFORM}/release/base.txz
     - rm -rfv /usr/obj/${CIRRUS_WORKING_DIR}/${PLATFORM}/release/dist/base/usr/share/locale/nn_NO.*
   upload_caches:
     - tmp
@@ -73,7 +71,6 @@ kernel_task:
     - pkg install -fy python39 python3 py39-setuptools
     - fetch https://bootstrap.pypa.io/get-pip.py
     - python3.9 get-pip.py
-    - pip install --upgrade cloudsmith-cli
     - echo "PLATFORM=$(uname -m).$(uname -p)" >> ${CIRRUS_ENV}
     - git clone https://github.com/ravynsoft/drm-kmod.git
   sys_cache:
@@ -87,7 +84,6 @@ kernel_task:
   kernel_build_script:
     - mkdir -p /usr/obj/${CIRRUS_WORKING_DIR}
     - ${CIRRUS_WORKING_DIR}/tools/ravynOS/build.sh kernel kernelpkg drm
-    - cloudsmith push raw -k $KEY ravynsoft/ravynOS --name kernel_${CIRRUS_BRANCH%/*}.txz /usr/obj/${CIRRUS_WORKING_DIR}/${PLATFORM}/release/kernel.txz
   upload_caches:
     - sys
     - release
